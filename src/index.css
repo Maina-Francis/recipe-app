@@ -12,6 +12,10 @@ body {
 }
 
 .card {
+  overflow: hidden;
   min-height: 25rem;
+  border-radius: 2rem;
+}
+.card img {
   border-radius: 2rem;
 }
