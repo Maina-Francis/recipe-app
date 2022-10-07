@@ -17,8 +17,8 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1 onClick={getRecipes}>Hello React</h1>
+    <div className="app">
+      <h1 onClick={getRecipes}>Food Recipe Galore🍕</h1>
     </div>
   );
 }
