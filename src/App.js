@@ -25,11 +25,13 @@ function App() {
       <h1 onClick={getRecipes}>Food Recipe Galore🍕</h1>
       <form className="search">
         <input
+          className="input"
           type="text"
           placeholder="Search Ingredient"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <input type="submit" value="Search" />
       </form>
     </div>
   );
