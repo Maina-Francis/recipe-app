@@ -66,3 +66,9 @@ code {
   align-items: baseline;
   grid-template-columns: 230px 230px;
 }
+
+.healthLabels {
+  border-radius: 5px;
+  padding: 6px;
+  margin-left: 8px;
+}
