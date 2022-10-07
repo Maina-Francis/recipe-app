@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import Recipes from "./components/Recipes";
 
@@ -57,7 +56,7 @@ function App() {
         <input className="submit" type="submit" value="Search" />
       </form>
 
-      <div>
+      <div className="app-recipes">
         {recipes.map((recipe) => {
           return <Recipes recipe={recipe} />;
         })}
