@@ -23,11 +23,13 @@ function Popular() {
   };
 
   return (
-    <div>
-      {popular.map((recipes) => {
+    <div className="wrapper">
+      <h3>Trending</h3>
+      {popular.map((recipe) => {
         return (
-          <div key={recipes.id}>
-            <p>{recipes.title}</p>
+          //card element
+          <div className="card">
+            <p>{recipe.title}</p>
           </div>
         );
       })}
