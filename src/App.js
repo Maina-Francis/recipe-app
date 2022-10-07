@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Axios from "axios";
+import Recipes from "./components/Recipes";
 
 function App() {
   const API_KEY = "8e7ccc310f4b29da4ed1741a7382c90d";
@@ -10,6 +11,7 @@ function App() {
 
   //useState Hook
   const [search, setSearch] = useState("");
+  const [recipes, setRecipes] = useState([]);
 
   //get recipes function
   // ***tried but got Unhandled Rejection (TypeError): Failed to fetch***
@@ -29,6 +31,7 @@ function App() {
   //fetch using axios
   async function getRecipes() {
     let result = await Axios.get(url);
+    setRecipes(result.data.hits);
     console.log(result.data);
   }
 
@@ -51,6 +54,12 @@ function App() {
         />
         <input className="submit" type="submit" value="Search" />
       </form>
+
+      <div>
+        {recipes.map((recipe) => {
+          return <Recipes recipe={recipe} />;
+        })}
+      </div>
     </div>
   );
 }
