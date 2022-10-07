@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import Axios from "axios";
 
 function App() {
   const API_KEY = "8e7ccc310f4b29da4ed1741a7382c90d";
@@ -11,19 +12,36 @@ function App() {
   const [search, setSearch] = useState("");
 
   //get recipes function
-  async function getRecipes() {
-    let results = await fetch(url)
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-    // .catch((err) => console.error(err));
+  // ***tried but got Unhandled Rejection (TypeError): Failed to fetch***
 
-    // console.log(results.data);
+  // async function getRecipes() {
+  //   await fetch(url)
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       setSearch(response.result);
+  //       console.log(response.result);
+  //     });
+  //   // .catch((err) => console.error(err));
+
+  //   // console.log(results.data);
+  // }
+
+  //fetch using axios
+  async function getRecipes() {
+    let result = await Axios.get(url);
+    console.log(result.data);
   }
+
+  //submit function to prevent default
+  const submitFunction = (e) => {
+    e.preventDefault();
+    getRecipes();
+  };
 
   return (
     <div className="app">
-      <h1 onClick={getRecipes}>Food Recipe Galore🍕</h1>
-      <form className="search">
+      <h1>Food Recipe Galore🍕</h1>
+      <form className="search" onSubmit={submitFunction}>
         <input
           className="input"
           type="text"
@@ -31,7 +49,7 @@ function App() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <input type="submit" value="Search" />
+        <input className="submit" type="submit" value="Search" />
       </form>
     </div>
   );
