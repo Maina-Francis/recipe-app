@@ -4,10 +4,10 @@ import Axios from "axios";
 import Recipes from "./components/Recipes";
 
 function App() {
-  const API_KEY = "8e7ccc310f4b29da4ed1741a7382c90d";
-  const API_ID = "f923a481";
+  const API_KEY = "11f1338bfc319891045d4a7721dabd03";
+  const API_ID = "0a97fde9";
 
-  const url = `https://api.edamam.com/search?q={search}&app_id=${API_ID}&app_key=${API_KEY}&&health=alcohol-free`;
+  const url = `https://api.edamam.com/search?q={search}&app_id=${API_ID}&app_key=${API_KEY}&health=alcohol-free`;
 
   //useState Hook
   const [search, setSearch] = useState("");
@@ -43,7 +43,9 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Food Recipe Galore🍕</h1>
+      <h1>
+        Food Recipe Galore<span role="img">🍕</span>
+      </h1>
       <form className="search" onSubmit={submitFunction}>
         <input
           className="input"
