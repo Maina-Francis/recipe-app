@@ -1,181 +1,43 @@
-import React, { useState } from "react";
-import Axios from "axios";
+import React, { useState, useEffect } from "react";
+
+import Header from "./components/Header";
 import Recipes from "./components/Recipes";
+import Axios from "axios";
 
 function App() {
-  //useState Hook
-  const [search, setSearch] = useState("");
+  const [search, setSerach] = useState("chiken");
   const [recipes, setRecipes] = useState([]);
-  const [healthLabel, sethealthLabel] = useState("gluten-free");
 
-  const API_KEY = "11f1338bfc319891045d4a7721dabd03";
-  const API_ID = "0a97fde9";
+  const APP_ID = "f923a481";
+  const APP_KEY = "8e7ccc310f4b29da4ed1741a7382c90d";
 
-  const url = `https://api.edamam.com/search?q={search}&app_id=${API_ID}&app_key=${API_KEY}&health=${healthLabel}`;
-
-  //get recipes function
-  // ***tried but got Unhandled Rejection (TypeError): Failed to fetch***
-
-  // async function getRecipes() {
-  //   await fetch(url)
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       setSearch(response.result);
-  //       console.log(response.result);
-  //     });
-  //   // .catch((err) => console.error(err));
-
-  //   // console.log(results.data);
-  // }
-
-  //fetch using axios
-  async function getRecipes() {
-    let result = await Axios.get(url);
-    setRecipes(result.data.hits);
-    console.log(result.data);
-  }
-
-  //submit function to prevent default
-  const submitFunction = (e) => {
-    e.preventDefault();
+  useEffect(() => {
     getRecipes();
+  }, []);
+
+  const getRecipes = async () => {
+    const res = await Axios.get(
+      `https://api.edamam.com/search?q=${search}&app_id=${APP_ID}&app_key=${APP_KEY}`
+    );
+    setRecipes(res.data.hits);
   };
 
+  const onInputChange = (e) => {
+    setSerach(e.target.value);
+  };
+
+  const onSearchClick = () => {
+    getRecipes();
+  };
   return (
-    <div className="app">
-      <h1>
-        Food Recipe Galore<span role="img">🍕</span>
-      </h1>
-      <form className="search" onSubmit={submitFunction}>
-        <input
-          className="input"
-          type="text"
-          placeholder="Search Ingredient"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <input className="submit" type="submit" value="Search" />
-
-        {/* dropdown */}
-        <select className="healthLabels">
-          <option
-            onClick={() => {
-              sethealthLabel("gluten-free");
-            }}
-          >
-            Gluten-Free
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("vegan");
-            }}
-          >
-            Vegan
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("vegetarian");
-            }}
-          >
-            Vegetarian
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("paleo");
-            }}
-          >
-            Paleo
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("dairy-free");
-            }}
-          >
-            Dairy-Free
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("wheat-free");
-            }}
-          >
-            Wheat-Free
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("fat-free");
-            }}
-          >
-            Fat-Free
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("low-sugar");
-            }}
-          >
-            Low-Sugar
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("egg-free");
-            }}
-          >
-            Egg-Free
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("peanut-free");
-            }}
-          >
-            Peanut-Free
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("tree-nut-free");
-            }}
-          >
-            Tree-Nut Free
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("soy-free");
-            }}
-          >
-            Soy-Free
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("fish-free");
-            }}
-          >
-            Fish-Free
-          </option>
-
-          <option
-            onClick={() => {
-              sethealthLabel("shellfish-free");
-            }}
-          >
-            Shellfish-Free
-          </option>
-        </select>
-      </form>
-
-      <div className="app-recipes">
-        {recipes.map((recipe) => {
-          return <Recipes recipe={recipe} />;
-        })}
+    <div className="App">
+      <Header
+        search={search}
+        onInputChange={onInputChange}
+        onSearchClick={onSearchClick}
+      />
+      <div className="container">
+        <Recipes recipes={recipes} />
       </div>
     </div>
   );
