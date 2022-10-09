@@ -1,8 +1,9 @@
 import React from "react";
 
-function RecipeCard(props) {
+function RecipeCard({ recipe }) {
   //destructure props
-  const { idMeal, strCategory, strMeal, strMealThumb } = props;
+  console.log(recipe);
+  const { idMeal, strCategory, strMeal, strMealThumb } = recipe;
   return (
     <div className="recipe-card">
       <img src={strMealThumb} className="image-card" alt={strMeal} />
